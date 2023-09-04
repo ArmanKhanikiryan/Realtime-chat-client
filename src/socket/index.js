@@ -2,7 +2,7 @@ import { io } from 'socket.io-client';
 import { socketListenEvent } from './event';
 
 export const initSocket = ({ setSocketValue }) => {
-  const socket = io('http://localhost:9999');
+  const socket = io('https://realtime-chat-server-lemon.vercel.app');
   socketListenEvent(socket, { setSocketValue });
   setSocketValue((prev) => ({ ...prev, socket }));
 

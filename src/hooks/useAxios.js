@@ -5,7 +5,7 @@ import { authAPI } from '../api';
 import { errorToast } from '../utils/toastify';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:9999',
+  baseURL: 'https://realtime-chat-server-lemon.vercel.app',
   withCredentials: true
 });
 
