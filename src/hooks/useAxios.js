@@ -3,9 +3,9 @@ import { useAuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { authAPI } from '../api';
 import { errorToast } from '../utils/toastify';
-
+const URLS = ['http://localhost:9999', 'https://realtime-chat-env.eba-sks35jdm.us-east-2.elasticbeanstalk.com'];
 const instance = axios.create({
-  baseURL: 'https://realtime-chat-server-lemon.vercel.app',
+  baseURL: URLS[0],
   withCredentials: true
 });
 

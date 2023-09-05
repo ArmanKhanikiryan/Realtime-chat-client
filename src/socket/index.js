@@ -1,8 +1,8 @@
 import { io } from 'socket.io-client';
 import { socketListenEvent } from './event';
-
+const URLS = ['http://localhost:9999', 'https://realtime-chat-env.eba-sks35jdm.us-east-2.elasticbeanstalk.com'];
 export const initSocket = ({ setSocketValue }) => {
-  const socket = io('https://realtime-chat-server-lemon.vercel.app');
+  const socket = io(URLS[0]);
   socketListenEvent(socket, { setSocketValue });
   setSocketValue((prev) => ({ ...prev, socket }));
 
