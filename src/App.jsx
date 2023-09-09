@@ -45,6 +45,7 @@ function App() {
           <Route path="/open-room" element={user ? <Room /> : <Navigate to="/login" replace={true} />} />
           <Route path="/login" element={user ? <Navigate to="/" replace={true} /> : <Login />} />
           <Route path="/signup" element={user ? <Navigate to="/" replace={true} /> : <SignUp />} />
+          <Route path="*" element={user ? <Navigate to="/" replace={true} /> : <Login />} />
         </Routes>
         <GlobalStyle />
         <ToastContainer />
