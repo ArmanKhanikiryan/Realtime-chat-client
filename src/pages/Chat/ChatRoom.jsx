@@ -60,34 +60,24 @@ function ChatRoom() {
     [user]
   );
 
-  // socket 收到訊息 -> 更新對話訊息狀態
   useEffect(() => {
     if (messageData) {
-      console.log('=== socket 收到訊息 ===', messageData);
-      // 檢查是否在對話中
       const isChatting = checkIsChatting(messageData);
-      // 是，更新訊息狀態「被自己」已讀
       if (isChatting) {
-        // 更新自己
         updateSelfMessageStatus(messageData);
-        // 更新 API & 對方
         const { receiver, sender, type } = messageData;
         const toId = type === 'room' ? receiver : sender;
         updateMessageStatusToRead(toId, type);
       }
-      // RESET
       resetSocketValue('messageData');
     }
   }, [messageData, checkIsChatting, updateSelfMessageStatus, updateMessageStatusToRead, resetSocketValue]);
 
-  // socket 收到 message update status 通知
   useEffect(() => {
     if (messageReadStatus) {
       const { type, readerId, toId: receiveRoomId } = messageReadStatus;
-      // 檢查已讀者是否正在對話中
       const isChatting = type === 'user' ? chatId === readerId : chatId === receiveRoomId;
       if (isChatting) {
-        console.log('*** set chat message read status ***', messageReadStatus);
         setChatMessages((prev) =>
           prev.map((msg) => (msg.sender !== readerId ? { ...msg, readers: [...msg.readers, readerId] } : msg))
         );

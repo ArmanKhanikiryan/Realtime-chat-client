@@ -26,13 +26,11 @@ function Navbar() {
   }, [socketId]);
 
   const handleLogout = () => {
-    console.log('logout', socketEmitEvent(socket));
     setUser(null);
     setToken(null);
     setChatInfo(null);
     if (socketId) {
       socketEmitEvent(socket).userOffline(user._id);
-      console.log('DISCONNECT');
       resetSocketValue();
       socket.disconnect();
     }

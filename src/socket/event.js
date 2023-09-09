@@ -15,9 +15,6 @@ export const socketListenEvent = (socket, { setSocketValue }) => {
 
   // receive message
   socket.on('RECEIVE_MESSAGE', (messageData) => {
-    console.log('****');
-    console.log('收到訊息了');
-    console.log('****');
     setSocketValue((prev) => ({
       ...prev,
       messageData
@@ -26,7 +23,6 @@ export const socketListenEvent = (socket, { setSocketValue }) => {
 
   // message has been read
   socket.on('MESSAGE_READ', (messageReadStatus) => {
-    console.log('=== socket 收到「對方」已讀通知 ===');
     setSocketValue((prev) => ({
       ...prev,
       messageReadStatus
