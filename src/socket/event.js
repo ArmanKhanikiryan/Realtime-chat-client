@@ -1,3 +1,5 @@
+import sound from '../assets/mixkit-bubble-pop-up-alert-notification-2357.wav'
+import icon from '../assets/react.svg';
 export const socketListenEvent = (socket, { setSocketValue }) => {
   socket.on('connect', () => {
     setSocketValue((prev) => ({
@@ -13,27 +15,27 @@ export const socketListenEvent = (socket, { setSocketValue }) => {
     }));
   });
 
-  // receive message
   socket.on('RECEIVE_MESSAGE', (messageData) => {
-    console.log('****');
-    console.log('收到訊息了');
-    console.log('****');
     setSocketValue((prev) => ({
       ...prev,
       messageData
     }));
+    console.log(messageData);
+    // eslint-disable-next-line no-new
+    new Notification('Socket title', {
+      body: messageData.message,
+      icon,
+      sound
+    });
   });
 
-  // message has been read
   socket.on('MESSAGE_READ', (messageReadStatus) => {
-    console.log('=== socket 收到「對方」已讀通知 ===');
     setSocketValue((prev) => ({
       ...prev,
       messageReadStatus
     }));
   });
 
-  // someone is typing
   socket.on('TYPING_NOTIFY', (typingNotify) => {
     setSocketValue((prev) => ({
       ...prev,
@@ -41,7 +43,6 @@ export const socketListenEvent = (socket, { setSocketValue }) => {
     }));
   });
 
-  // someone enter / leave chat room
   socket.on('CHAT_ROOM_NOTIFY', ({ message }) => {
     setSocketValue((prev) => ({
       ...prev,
@@ -49,7 +50,6 @@ export const socketListenEvent = (socket, { setSocketValue }) => {
     }));
   });
 
-  // someone invited user to room
   socket.on('INVITED_TO_ROOM', ({ message }) => {
     setSocketValue((prev) => ({
       ...prev,

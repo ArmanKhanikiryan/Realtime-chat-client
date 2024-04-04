@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import ListItem from './ChatListItem';
 import { useChatContext } from '../../context/ChatContext';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
-
+import { useAuthContext } from '../../context/AuthContext.jsx';
+import generateChatBot from '../../utils/chatBot.js';
 function ChatContactList() {
+  const { user } = useAuthContext();
   const { contacts, handleChatSelect } = useChatContext();
   const [display, setDisplay] = useState({
     rooms: true,
     users: true
   });
-
   const contactGroups = contacts.reduce(
     (prev, curr) => {
       curr?.chatType === 'room' ? prev.rooms.push(curr) : prev.users.push(curr);
@@ -18,7 +19,7 @@ function ChatContactList() {
     },
     {
       rooms: [],
-      users: []
+      users: [generateChatBot(user)]
     }
   );
 

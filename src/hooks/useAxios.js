@@ -6,7 +6,7 @@ import { errorToast } from '../utils/toastify';
 const URLS = ['http://localhost:9999', 'https://realtime-chat-env.eba-sks35jdm.us-east-2.elasticbeanstalk.com'];
 
 const instance = axios.create({
-  baseURL: URLS[1],
+  baseURL: URLS[0],
   withCredentials: true
 });
 

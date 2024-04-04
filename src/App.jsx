@@ -25,6 +25,7 @@ function App() {
   } = useSocketContext();
 
   useEffect(() => {
+    Notification.requestPermission().then((res) => res === 'granted' && console.log('Request Granted'));
     if (user && !socketId) {
       socketConnect();
     }

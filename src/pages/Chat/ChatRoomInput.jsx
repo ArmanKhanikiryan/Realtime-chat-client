@@ -27,6 +27,10 @@ function ChatRoomInput({ setChatMessages }) {
       setInputMessage('');
       return;
     }
+    if (chatId === '1') {
+      console.log('Bot request');
+      return;
+    }
     postUserMessage(
       {
         method: 'POST',
@@ -40,10 +44,8 @@ function ChatRoomInput({ setChatMessages }) {
         }
       },
       (data) => {
-        // 更新自己的 room message
         setChatMessages((prev) => [...prev, { ...data.data, avatarImage: user.avatarImage }]);
 
-        // 用 socket 即時通知對方
         socketEmitEvent(socket).sendMessage({
           ...data.data,
           avatarImage: user.avatarImage,
@@ -51,7 +53,6 @@ function ChatRoomInput({ setChatMessages }) {
           receiver: chatId
         });
 
-        // 更新自己的 contact list
         updateContactLatestMessage({
           ...data.data,
           type: chatInfo.chatType,
@@ -65,7 +66,6 @@ function ChatRoomInput({ setChatMessages }) {
   };
 
   const handleKeyUp = () => {
-    // 如果 typing 不一樣才 emit
     const newTypingStatus = inputMessage.trim() !== '';
     if (isTyping !== newTypingStatus) {
       socketEmitEvent(socket).userTyping({
