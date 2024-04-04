@@ -11,7 +11,6 @@ export const initSocket = ({ setSocketValue }) => {
   // return {
   //   socket,
   //   disconnect: () => {
-  //     console.log('DISCONNECT')
   //     setSocketValue(INIT_SOCKET_STATE)
   //     socket.disconnect()
   //   }
